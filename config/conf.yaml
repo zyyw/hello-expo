@@ -1,0 +1,8 @@
+env: "dev"
+
+dev:
+  server:
+    httpPort: 8080
+  log:
+    path: "."
+    level: "debug"
