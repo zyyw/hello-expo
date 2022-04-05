@@ -16,7 +16,8 @@ COPY ./ ./
 RUN GO111MODULE=on CGO_ENABLED=0 go build -ldflags "-X main.GitCommit=$GIT_COMMIT" -a -o run-hello-expo
 
 # Copy the controller-manager into a thin image
-FROM cicd.harbor.vmwarecna.net/base-images/golang-runtime
+#FROM cicd.harbor.vmwarecna.net/base-images/golang-runtime
+FROM alpine:3.14.6
 WORKDIR /app
 COPY --from=builder /src/run-hello-expo .
 COPY --from=builder /src/config/conf.yaml ./config/
