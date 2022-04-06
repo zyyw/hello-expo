@@ -18,8 +18,24 @@ RUN GO111MODULE=on CGO_ENABLED=0 go build -ldflags "-X main.GitCommit=$GIT_COMMI
 # Copy the controller-manager into a thin image
 #FROM cicd.harbor.vmwarecna.net/base-images/golang-runtime
 FROM alpine:3.14.6
+ARG COUNT
+
 WORKDIR /app
 COPY --from=builder /src/run-hello-expo .
 COPY --from=builder /src/config/conf.yaml ./config/
 COPY --from=builder /src/templates ./templates
-ENTRYPOINT ["/app/run-hello-expo"]
+
+WORKDIR big_files
+RUN dd if=/dev/zero of=1.txt bs=1M count=$COUNT
+RUN dd if=/dev/zero of=2.txt bs=1M count=$COUNT
+RUN dd if=/dev/zero of=3.txt bs=1M count=$COUNT
+RUN dd if=/dev/zero of=4.txt bs=1M count=$COUNT
+RUN dd if=/dev/zero of=5.txt bs=1M count=$COUNT
+RUN dd if=/dev/zero of=6.txt bs=1M count=$COUNT
+RUN dd if=/dev/zero of=7.txt bs=1M count=$COUNT
+RUN dd if=/dev/zero of=8.txt bs=1M count=$COUNT
+RUN dd if=/dev/zero of=9.txt bs=1M count=$COUNT
+RUN dd if=/dev/zero of=10.txt bs=1M count=$COUNT
+
+WORKDIR /app
+ENTRYPOINT ["/app/run-hello-expo", "-c", "/app/config/conf.yaml"]
