@@ -5,7 +5,7 @@ if [ -n "$1" ] && [ $1 -gt 0 ]; then
   COUNT=$1
 fi
 
-# docker build the controller-manager image for tams-extension
+# docker build the hello-expo image
 docker build \
 --build-arg GIT_COMMIT=$GIT_COMMIT \
 --build-arg GOPROXY=http://10.202.250.221:3000 \
